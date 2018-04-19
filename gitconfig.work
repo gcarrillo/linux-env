@@ -1,0 +1,46 @@
+[color]
+	ui = auto
+[user]
+	email = erik.g.carrillo@intel.com
+	name = Erik Gabriel Carrillo
+[alias]
+        hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+        lga = log --graph --decorate --pretty=oneline --all --abbrev-commit
+        st = status
+        unstage = reset HEAD --
+        last = log -1 HEAD
+        ci = commit
+        show-files = diff-tree --no-commit-id --name-only -r
+        whatadded = log --diff-filter=A
+        shorthash = rev-parse --short
+        log-files = log --pretty=format:"[%h] %ae, %ar: %s" --stat
+        fixline = log -1 --abbrev=12 --format='Fixes: %h (\"%s\")%nCc: %ae'
+        alias = config --get-regexp alias
+        parent = show -s HEAD
+	curbranch = rev-parse --abbrev-ref HEAD
+[core]
+	editor = vi
+	gitproxy = /home/egc/bin/gitproxy
+[merge]
+	tool = meld
+[mergetool "meld"]
+	cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED"
+[push]
+	default = simple
+[diff]
+	tool = meld
+	guitool = meld
+[difftool]
+	prompt = false
+[difftool "meld"]
+	cmd = meld \"$LOCAL\" \"$REMOTE\" --label \"DIFF (ORIGINAL MY)\"
+[http]
+	proxy = http://proxy-us.intel.com:911
+[https]
+	proxy = https://proxy-us.intel.com:912
+[sendemail]
+        suppressfrom = true
+        chainreplyto = false
+        confirm = always
+        envelopesender = auto
+        smtpserver = smtp.intel.com
