@@ -1,13 +1,23 @@
+" Pathogen
+execute pathogen#infect()
+" ==============
+
 syntax on
+
+set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<,space:·
 set title
 set ruler
 set backspace=indent,eol,start
+
 "/usr/share/vim/vim*/colors
 colorscheme default
-" Dark Pastels
 set background=dark
 
-" Show a window number in window splits (for use with CTRL-W <num>w)
+" Change colorscheme for diffing only
+if &diff
+	colorscheme xoria256 
+endif
+
 set statusline=%{winnr()}
 set statusline+=\ 
 set statusline+=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
@@ -17,7 +27,7 @@ set autoread
 set number
 set modeline
 set colorcolumn=80
-highlight ColorColumn ctermbg=0
+highlight ColorColumn ctermbg=black
 
 set hlsearch
 hi Search ctermfg=black
@@ -28,6 +38,18 @@ let loaded_matchparen = 1
 
 set cino+=(0
 set cino+=:0
+
+" Choosewin
+" invoke with '-'
+"nmap  -  <Plug>(choosewin)
+nmap  _  <Plug>(choosewin)
+let g:choosewin_blink_on_land = 0
+"let g:choosewin_overlay_enable = 1
+" Tmux style window selection
+"map <Leader>ws :ChooseWin<cr> 
+
+" NERDTree
+map <C-n> :NERDTreeToggle<CR>
 
 let c_space_errors = 1
 let python_space_errors = 1
@@ -52,17 +74,17 @@ nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
 set showmode
 
-" Automatically load cscope.out DB, if it exists
-function! LoadCscope()
-	let db = findfile("cscope.out", ".;")
-	if (!empty(db))
-		let path = strpart(db, 0, match(db, "/cscope.out$"))
-		set nocscopeverbose " suppress 'duplicate connection' error
-		exe "cs add " . db . " " . path
-		set cscopeverbose
-	endif
-endfunction
-au BufEnter /* call LoadCscope()
+"" Automatically load cscope.out DB, if it exists
+"function! LoadCscope()
+"	let db = findfile("cscope.out", ".;")
+"	if (!empty(db))
+"		let path = strpart(db, 0, match(db, "/cscope.out$"))
+"		set nocscopeverbose " suppress 'duplicate connection' error
+"		exe "cs add " . db . " " . path
+"		set cscopeverbose
+"	endif
+"endfunction
+"au BufEnter /* call LoadCscope()
 
 " Put new window on right of horizontal split
 set splitright
@@ -80,7 +102,7 @@ endif
 
 set completeopt-=preview
 
-" Modify the appearance of the tab line (tab labels)
+" This function changes the way the tabline is rendered, 
 if exists("+showtabline")
      function MyTabLine()
          let s = ''
@@ -113,3 +135,6 @@ if exists("+showtabline")
      set stal=2
      set tabline=%!MyTabLine()
 endif
+
+" Remove all the leading + chars after pasting a patch hunk
+map  :%s/^+//
