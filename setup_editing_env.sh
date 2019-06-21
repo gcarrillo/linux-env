@@ -1,7 +1,5 @@
-#!/bin/sh -ex
+#!/bin/sh -e
 
-# TODO: clone my linux repo and copy vimrc out of it.  This will include a
-# line that will use the pathogen setup below.
 # https://github.com/gcarrillo/linux-env
 echo "Cloning my linux-env repo"
 git clone https://github.com/gcarrillo/linux-env.git /tmp/linux-env
@@ -43,3 +41,5 @@ cp /tmp/linux-env/tmux.conf ~/.tmux.conf
 
 echo "\nCopying gitconfig file into place"
 cp /tmp/linux-env/gitconfig ~/.gitconfig
+
+rm -rf /tmp/linux-env
